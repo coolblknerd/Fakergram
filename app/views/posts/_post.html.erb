@@ -1,0 +1,65 @@
+<div id="post-box">
+  
+  <!-- This is where the user/post info will be (pulling left) -->
+  
+  <div class='post-info pull-left'>
+    <p><i class="glyphicon glyphicon-user"></i> Posted <%= time_ago_in_words(post.updated_at)%> ago.<p>
+  </div>
+  
+  <!-- End -->
+  
+  <!-- This is where the dropdown menu for action buttons will be (pulling right) -->
+  <div class="dropdown pull-right" id="action-button">
+    <button id="post-dd" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="glyphicon glyphicon-menu-hamburger"></i>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="post-dd">
+      <li><%= link_to 'Edit', edit_post_path(post) %></li>
+      <li><%= link_to 'Delete', post , method: :delete, data: { confirm: 'Are you sure?' }%></li>
+    </ul>
+  </div>
+  <!-- End -->
+  
+  <!-- Where the post will be -->
+  <div id='image-post'>
+    <%= image_tag post.image.url(:medium) %><br>
+  </div>
+  
+  <div id='status-post'>
+    <%= post.status %></br>
+  </div>
+  <!-- End -->
+  
+  <!-- Where the comments will be -->
+  <div id="comments">
+    
+    <div id="view-comments">
+    <% if post.comments.exists? %>
+      <% post.comments.each do |comment| %>
+        <h4><%= comment.comment %></h4>
+        <p>Posted <%= time_ago_in_words(comment.created_at) %></p>
+      <% end %>
+    </div>
+    <% else %>
+      <p>Sorry, you don't have any comments yet.</p>
+    <% end %>
+    
+    <div id="create-comments">
+      
+      <%= form_for ([post, post.comments.build]) do |f| %>
+      
+      <div class="input-group">
+          <%=f.text_field  :comment, placeholder: "Add a comment...", class: "form-control"%>
+          <span class="input-group-btn">
+            <%= f.submit 'Comment', class: "btn btn-primary"%>
+          </span>
+      </div><!-- /input-group -->
+      
+      <% end %>
+      
+    </div>
+    
+  </div>  
+  <!-- End -->
+  
+</div>

@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "normalize";
+@import "flatly";
+
+#post-box {
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid black;
+  margin: 32px;
+  
+  #action-button {
+    padding-bottom: 5px;
+  
+    button {
+      outline: none;
+      border: 0; 
+      background: transparent;
+    }
+  }
+  
+  #image-post {
+  }
+  
+  #status-post {
+    font-size: 20px;
+    padding: 10px 15px;
+  }
+}
