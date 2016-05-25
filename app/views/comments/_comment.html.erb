@@ -1,0 +1,26 @@
+# Will have to complete later...
+
+    <% if post.comments.exists? %>
+  <div class='view-comments' id="view-comments_#{ post.id }">
+
+    <div id='comment-user'>
+      <strong><%= comment.user.user_name %></strong>
+    </div>
+
+    <div id='comment-comment'>
+      <%= comment.comment %>
+    </div>
+
+    <% if comment.user == current_user %>
+    <div id='comment-delete'>
+      <%= link_to post_comment_path(post, comment), method: :delete do %>
+      <i class="glyphicon glyphicon-remove pull-right"></i>
+      <% end %>
+    </div>
+    <% end %>
+
+  <% else %>
+    <p>Sorry, you don't have any comments yet.</p>
+  <% end %>
+
+  </div><!-- /view-comments -->

@@ -1,55 +1,53 @@
 <div id="post-box">
+  <div id='post_<%= post.id %>'>
   
   <!-- This is where the user/post info will be (pulling left) -->
-  
-  <div class='post-info pull-left'>
-    <p><i class="glyphicon glyphicon-user"></i> Posted <%= time_ago_in_words(post.updated_at)%> ago.<p>
-  </div>
+  <div class='post-header'>
+    <div class='post-info pull-left'>
+      <p><i class="glyphicon glyphicon-user"></i> <%= post.user.user_name %> posted <%= time_ago_in_words(post.updated_at)%> ago.</p>
+    </div>
   
   <!-- End -->
   
   <!-- This is where the dropdown menu for action buttons will be (pulling right) -->
-  <div class="dropdown pull-right" id="action-button">
-    <button id="post-dd" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="glyphicon glyphicon-menu-hamburger"></i>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="post-dd">
-      <li><%= link_to 'Edit', edit_post_path(post) %></li>
-      <li><%= link_to 'Delete', post , method: :delete, data: { confirm: 'Are you sure?' }%></li>
-    </ul>
-  </div>
+  <% if post.user.id == current_user.id %>
+    <div class="dropdown pull-right" id="action-button">
+      <button id="post-dd" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="glyphicon glyphicon-menu-hamburger"></i>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="post-dd">
+        <li><%= link_to 'Edit', edit_post_path(post) %></li>
+        <li><%= link_to 'Delete', post , method: :delete, data: { confirm: 'Are you sure?' }%></li>
+      </ul>
+    </div>
+    <% end %>
   <!-- End -->
+  </div>
   
   <!-- Where the post will be -->
-  <div id='image-post'>
+  <div class='center-block' id='image-post'>
     <%= image_tag post.image.url(:medium) %><br>
   </div>
   
   <div id='status-post'>
+    <strong><%= post.user.user_name %></strong>
     <%= post.status %></br>
   </div>
   <!-- End -->
   
   <!-- Where the comments will be -->
-  <div id="comments">
+  <div id="comments_#{ post.id }">
     
-    <div id="view-comments">
-    <% if post.comments.exists? %>
-      <% post.comments.each do |comment| %>
-        <h4><%= comment.comment %></h4>
-        <p>Posted <%= time_ago_in_words(comment.created_at) %></p>
-      <% end %>
-    </div>
-    <% else %>
-      <p>Sorry, you don't have any comments yet.</p>
-    <% end %>
+    <%= render post.comments, post: post %>
+    
+  </div><!-- /comments -->
     
     <div id="create-comments">
       
-      <%= form_for ([post, post.comments.build]) do |f| %>
+      <%= form_for [post, post.comments.build], remote: true do |f| %>
       
       <div class="input-group">
-          <%=f.text_field  :comment, placeholder: "Add a comment...", class: "form-control"%>
+          <%=f.text_field  :comment, placeholder: "Add a comment...", class: "form-control", id: "new-comment_#{ post.id }"%>
           <span class="input-group-btn">
             <%= f.submit 'Comment', class: "btn btn-primary"%>
           </span>
@@ -57,9 +55,9 @@
       
       <% end %>
       
-    </div>
+    </div><!-- /create-comments -->
     
-  </div>  
-  <!-- End -->
+    <!-- End -->
+</div>
   
 </div>

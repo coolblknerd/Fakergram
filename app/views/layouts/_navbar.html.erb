@@ -6,7 +6,7 @@
     <ul class="nav navbar-nav">
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <% if current_user %>
+      <% if user_signed_in? %>
         <li>
           <%= link_to edit_user_registration_path do%>
           <i class="glyphicon glyphicon-edit">Edit Profile</i>

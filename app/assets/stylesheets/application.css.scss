@@ -19,27 +19,42 @@
 @import "normalize";
 @import "flatly";
 
-#post-box {
-  padding: 10px;
-  border-radius: 3px;
-  border: 1px solid black;
-  margin: 32px;
+#latest-updates {
+  padding-top: 10px;
+  max-width: 505px;
+  padding-bottom: 30px;
+}
   
-  #action-button {
-    padding-bottom: 5px;
+#action-button {
+  padding-bottom: 5px;
+}
+
+button {
+    outline: none;
+    border: 0; 
+    background: transparent;
+}
+
+.post-header {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+
+#status-post {
+  display: inline;
+  font-size: 20px;
+}
+
+.view-comments {
+  margin-top: 5px;
   
-    button {
-      outline: none;
-      border: 0; 
-      background: transparent;
-    }
+  #comment-user, #comment-comment, #comment-delete {
+    display: inline;
+    padding: 1;
   }
   
-  #image-post {
-  }
-  
-  #status-post {
-    font-size: 20px;
-    padding: 10px 15px;
+  #create-comments {
+    margin-top: 10px;
   }
 }
